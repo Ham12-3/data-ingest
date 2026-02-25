@@ -1,29 +1,52 @@
 "use client";
 
-import { Bell, Search, User } from "lucide-react";
+import { Bell, Search } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { useDashboardStore } from "@/stores/dashboardStore";
+import { Wifi, WifiOff } from "lucide-react";
 
 export function Header() {
+  const sseConnected = useDashboardStore((s) => s.sseConnected);
+
   return (
-    <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b bg-white px-8 dark:bg-zinc-950">
-      <div className="flex w-full max-w-md items-center gap-2 rounded-md border bg-zinc-50 px-3 py-1.5 dark:bg-zinc-900">
-        <Search className="h-4 w-4 text-zinc-500" />
+    <header className="sticky top-0 z-30 flex h-14 w-full items-center justify-between border-b border-slate-800 bg-slate-950/80 px-6 backdrop-blur-sm lg:px-8">
+      <div className="flex w-full max-w-md items-center gap-2 rounded-lg border border-slate-700 bg-slate-900 px-3 py-1.5">
+        <Search className="h-4 w-4 text-slate-500" />
         <input
           type="text"
           placeholder="Search features, users, or metrics..."
-          className="w-full bg-transparent text-sm outline-none placeholder:text-zinc-500"
+          className="w-full bg-transparent text-sm text-slate-200 outline-none placeholder:text-slate-500"
+          aria-label="Search"
         />
       </div>
 
-      <div className="flex items-center gap-4">
-        <button className="relative rounded-full p-2 hover:bg-zinc-100 dark:hover:bg-zinc-900">
-          <Bell className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
-          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white dark:ring-zinc-950"></span>
+      <div className="flex items-center gap-3">
+        {/* SSE indicator */}
+        <div className="flex items-center gap-1.5 text-xs" title={sseConnected ? "Connected to real-time stream" : "Disconnected from real-time stream"}>
+          {sseConnected ? (
+            <Wifi className="h-3.5 w-3.5 text-emerald-500" aria-label="Connected" />
+          ) : (
+            <WifiOff className="h-3.5 w-3.5 text-slate-500" aria-label="Disconnected" />
+          )}
+        </div>
+
+        <button
+          className="relative rounded-lg p-2 text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-200"
+          aria-label="Notifications"
+        >
+          <Bell className="h-5 w-5" />
+          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-rose-500 ring-2 ring-slate-950" />
         </button>
+
         <ThemeToggle />
-        <div className="h-8 w-px bg-zinc-200 dark:bg-zinc-800"></div>
-        <button className="flex items-center gap-2 rounded-full p-1 hover:bg-zinc-100 dark:hover:bg-zinc-900">
-          <div className="h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center text-xs font-bold text-white">
+
+        <div className="h-6 w-px bg-slate-800" />
+
+        <button
+          className="flex items-center gap-2 rounded-lg p-1 transition-colors hover:bg-slate-800"
+          aria-label="User menu"
+        >
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white">
             JD
           </div>
         </button>
