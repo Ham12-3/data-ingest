@@ -1,0 +1,115 @@
+{
+  "expectation_suite_name": "user_event_suite",
+  "expectations": [
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "event_id"
+      },
+      "meta": {
+        "notes": "Every event must have a globally unique identifier."
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "user_id"
+      },
+      "meta": {
+        "notes": "Every event must be attributable to a user."
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "event_type"
+      },
+      "meta": {
+        "notes": "Event type is required for routing and feature computation."
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "timestamp"
+      },
+      "meta": {
+        "notes": "Timestamp is required for event-time processing and watermarks."
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "session_id"
+      },
+      "meta": {
+        "notes": "Session identifier is required for session-level feature aggregation."
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "event_type",
+        "value_set": ["page_view", "purchase", "click", "signup"]
+      },
+      "meta": {
+        "notes": "Only recognised event types are permitted through the pipeline."
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "device",
+        "value_set": ["mobile", "desktop", "tablet"]
+      },
+      "meta": {
+        "notes": "Device must be one of the supported form factors."
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "amount",
+        "min_value": 0.01,
+        "max_value": 100000,
+        "mostly": 1.0
+      },
+      "meta": {
+        "notes": "Monetary amounts must be positive and within a reasonable upper bound."
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_match_regex",
+      "kwargs": {
+        "column": "user_id",
+        "regex": "^user_\\d+$"
+      },
+      "meta": {
+        "notes": "User IDs must follow the canonical user_<digits> format."
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "event_count",
+        "min_value": 0
+      },
+      "meta": {
+        "notes": "Event counts are non-negative integers."
+      }
+    },
+    {
+      "expectation_type": "expect_table_row_count_to_be_between",
+      "kwargs": {
+        "min_value": 1
+      },
+      "meta": {
+        "notes": "A batch must contain at least one event to be meaningful."
+      }
+    }
+  ],
+  "meta": {
+    "great_expectations_version": "0.18.0",
+    "notes": "Suite for validating user events in the real-time data ingestion pipeline."
+  }
+}

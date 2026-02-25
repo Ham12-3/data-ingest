@@ -1,0 +1,107 @@
+{
+  "type": "record",
+  "name": "UserEvent",
+  "namespace": "com.pipeline.events",
+  "doc": "Schema for user-generated events ingested by the data pipeline.",
+  "fields": [
+    {
+      "name": "event_id",
+      "type": "string",
+      "doc": "Globally unique identifier for the event."
+    },
+    {
+      "name": "user_id",
+      "type": "string",
+      "doc": "Identifier for the user who triggered the event."
+    },
+    {
+      "name": "event_type",
+      "type": {
+        "type": "enum",
+        "name": "EventType",
+        "namespace": "com.pipeline.events",
+        "doc": "The category of user interaction.",
+        "symbols": ["page_view", "purchase", "click", "signup"]
+      },
+      "doc": "Type of user interaction that occurred."
+    },
+    {
+      "name": "timestamp",
+      "type": "string",
+      "doc": "ISO-8601 timestamp indicating when the event occurred."
+    },
+    {
+      "name": "properties",
+      "type": {
+        "type": "record",
+        "name": "EventProperties",
+        "namespace": "com.pipeline.events",
+        "doc": "Contextual properties associated with the event.",
+        "fields": [
+          {
+            "name": "page_url",
+            "type": ["null", "string"],
+            "default": null,
+            "doc": "URL of the page where the event occurred, if applicable."
+          },
+          {
+            "name": "session_id",
+            "type": "string",
+            "doc": "Identifier for the user session."
+          },
+          {
+            "name": "device",
+            "type": {
+              "type": "enum",
+              "name": "DeviceType",
+              "namespace": "com.pipeline.events",
+              "doc": "Device form factor used by the user.",
+              "symbols": ["mobile", "desktop", "tablet"]
+            },
+            "doc": "Device type from which the event was generated."
+          },
+          {
+            "name": "amount",
+            "type": ["null", "double"],
+            "default": null,
+            "doc": "Monetary amount associated with the event (e.g. purchase total)."
+          },
+          {
+            "name": "currency",
+            "type": ["null", "string"],
+            "default": null,
+            "doc": "ISO-4217 three-letter currency code (e.g. USD, EUR)."
+          }
+        ]
+      },
+      "doc": "Event-specific properties and context."
+    },
+    {
+      "name": "metadata",
+      "type": {
+        "type": "record",
+        "name": "EventMetadata",
+        "namespace": "com.pipeline.events",
+        "doc": "Request-level metadata captured at ingestion time.",
+        "fields": [
+          {
+            "name": "ip_address",
+            "type": "string",
+            "doc": "IP address of the client that generated the event."
+          },
+          {
+            "name": "user_agent",
+            "type": "string",
+            "doc": "User-Agent header from the originating HTTP request."
+          },
+          {
+            "name": "country",
+            "type": "string",
+            "doc": "ISO-3166 country code derived from the IP address."
+          }
+        ]
+      },
+      "doc": "Infrastructure and request metadata."
+    }
+  ]
+}

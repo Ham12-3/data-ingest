@@ -1,0 +1,15 @@
+project: user_features_pipeline
+registry: registry.db
+provider: local
+online_store:
+  type: redis
+  connection_string: redis://redis:6379
+offline_store:
+  type: postgres
+  host: postgres
+  port: 5432
+  database: feast_offline
+  db_schema: public
+  user: feast
+  password: ${POSTGRES_PASSWORD:-changeme}
+entity_key_serialization_version: 2
