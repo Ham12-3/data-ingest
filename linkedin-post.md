@@ -1,9 +1,7 @@
-Thrilled to share a project we have just finished building -- a real-time data ingestion and feature engineering pipeline.
+I have been learning about MLOps lately, and the biggest lesson is that data pipelines are like kitchens, not restaurants.
 
-It takes raw user events from Kafka, validates them with Great Expectations, and computes ML-ready features using windowed aggregations in PyFlink. Features are then stored in Feast for both online and offline serving.
+Your ML model is the chef. But a chef is useless without clean ingredients arriving on time. That is what a feature pipeline does. Kafka acts as the conveyor belt, moving raw events in. Great Expectations is the quality inspector, checking every item before it gets used. PyFlink is the prep station, slicing and aggregating data into features the model can actually use. And Feast is the fridge, storing features ready to serve fresh or in bulk.
 
-We built a full monitoring dashboard with Next.js, complete with live metrics, dead-letter queue management, and data quality tracking.
+The real skill in MLOps is not building the model. It is building the kitchen.
 
-The stack includes FastAPI, Redis, PostgreSQL, Prometheus, and Grafana.
-
-Would love to hear your thoughts. #DataEngineering #MachineLearning #Python #Kafka
+#MLOps #DataEngineering #MachineLearning
