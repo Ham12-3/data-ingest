@@ -1,12 +1,16 @@
-"use client";
-
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import type { Metadata } from "next";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Header } from "@/components/layout/Header";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
+import { Providers } from "@/components/Providers";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { useState } from "react";
+
+export const metadata: Metadata = {
+  title: "FeatureStream — ML Pipeline Dashboard",
+  description:
+    "Real-time monitoring and management for Kafka, Flink, Feast, and Great Expectations pipelines.",
+};
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,25 +27,25 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [queryClient] = useState(() => new QueryClient());
-
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-50 dark:bg-black`}>
-        <QueryClientProvider client={queryClient}>
-          <div className="flex min-h-screen">
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100`}
+      >
+        <Providers>
+          <div className="flex h-screen overflow-hidden">
             <Sidebar />
-            <div className="flex flex-1 flex-col overflow-hidden">
+            <div className="flex flex-1 flex-col overflow-hidden min-w-0">
               <Header />
-              <main className="flex-1 overflow-y-auto px-8 py-6">
-                <div className="mb-6">
+              <main className="flex-1 overflow-y-auto px-6 py-6 lg:px-8">
+                <div className="mb-4">
                   <Breadcrumbs />
                 </div>
                 {children}
               </main>
             </div>
           </div>
-        </QueryClientProvider>
+        </Providers>
       </body>
     </html>
   );
