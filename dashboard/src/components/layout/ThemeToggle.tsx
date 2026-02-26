@@ -1,38 +1,33 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useSettingsStore } from "@/stores/settingsStore";
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-
-  useEffect(() => {
-    const root = window.document.documentElement;
-    const initialTheme = root.classList.contains("dark") ? "dark" : "light";
-    setTheme(initialTheme);
-  }, []);
+  const theme = useSettingsStore((s) => s.theme);
+  const setTheme = useSettingsStore((s) => s.setTheme);
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
-    const root = window.document.documentElement;
+    const root = document.documentElement;
     if (newTheme === "dark") {
       root.classList.add("dark");
     } else {
       root.classList.remove("dark");
     }
     setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
   };
 
   return (
     <button
       onClick={toggleTheme}
-      className="flex h-10 w-10 items-center justify-center rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900"
+      className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-200"
+      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
     >
       {theme === "light" ? (
-        <Sun className="h-5 w-5 text-zinc-600" />
+        <Sun className="h-5 w-5" />
       ) : (
-        <Moon className="h-5 w-5 text-zinc-400" />
+        <Moon className="h-5 w-5" />
       )}
     </button>
   );
