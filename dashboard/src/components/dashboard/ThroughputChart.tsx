@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useMemo } from "react";
 import {
   AreaChart,
   Area,
@@ -49,7 +50,7 @@ export function ThroughputChart({ data = MOCK_DATA }: ThroughputChartProps) {
                 </linearGradient>
               ))}
             </defs>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
             <XAxis
               dataKey="time"
               axisLine={false}

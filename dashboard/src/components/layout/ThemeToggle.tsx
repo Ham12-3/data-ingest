@@ -34,9 +34,9 @@ export function ThemeToggle() {
       className="flex h-10 w-10 items-center justify-center rounded-md transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-900"
     >
       {theme === "light" ? (
-        <Sun className="h-5 w-5 text-zinc-600" />
+        <Sun className="h-5 w-5" />
       ) : (
-        <Moon className="h-5 w-5 text-zinc-400" />
+        <Moon className="h-5 w-5" />
       )}
     </button>
   );
